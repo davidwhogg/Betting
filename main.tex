@@ -1,0 +1,115 @@
+\documentclass{article}
+
+% to-do
+% -----
+% - Audit for uses of "believe" which is a technical word, related to probability.
+% - Be careful with hyphen and en-dash.
+
+% typesetting
+\linespread{1.08333} % 10/13 spacing
+\frenchspacing\sloppy\sloppypar\raggedbottom
+
+\begin{document}
+
+\noindent
+\textbf{Bets among friends:\\ Algorithms to enable mutually acceptable betting}
+
+\medskip
+\noindent
+\textbf{David W. Hogg}\\
+\textit{Center for Cosmology and Particle Physics, Department of Physics, New York University}
+
+\paragraph{Abstract:}
+Friends sometimes like to bet on things.
+Here we address the question of how to structure such bets such that they are both fair and mutually beneficial.
+We consider two kinds of bets between two friends.
+In one, there is a well-defined proposition, and the question is:
+How to set the odds?
+In another, there is an even-odds bet that some number will be over or under some value, and the question is:
+How to set the over--under value?
+We propose solutions that involve the two players submitting secret but binding bids to an escrow service.
+
+\paragraph{Background information:}
+I am a bettor, and I place bets at a book.
+The book offers me bets and odds on those bets.
+For example, the book might offer odds\footnote{%
+Different books present to the customer odds in different formats.
+The odds that I write as 1.8:1 will be written in ``American format'' as +1.80.
+It will be written in ``European format'' as 2.800.
+And it will be written at the horse track as 1.80.
+Similarly, the odds that I write as 0.5:1 or 1:2.0 will be written in American format as -2.00 (huh?),
+European format as 1.500,
+and at the track as 0.5.
+None of this notation matters to us right now, but I'm putting it here to remind people that there are
+different languages in play.}
+of 1.8:1 that the Argos will win their next game.
+That means that if I bet 100\,USD to win and the Argos win, I will be paid back my 100\,USD plus 180\,USD in winnings for a total of 280\,USD.
+If I bet 100\,USD to win and the Argos lose, I will lose my 100\,USD.
+
+When contemplating gambling, it is useful (and, apparently, optimal\footnote{HOGG CITE.}) to reason like a Bayesian.
+From a Bayesian perspective, probabilities are \emph{degrees of belief}.
+If I say that there is a 35-percent chance (say) that the Argos will win their next game, what I mean is:
+I don't know whether the Argos will win, and I don't think it is particularly likely,
+but I am willing to bet that they will win only if you give me sufficient odds.
+For Bayesians, probabilities don't translate into frequencies of events, they translate into betting
+behaviors.
+
+Let's make this quantitative.
+The (only) way to understand a Bayesian probability\footnote{%
+Sometimes people like to think of probabilities as frequencies, but there is no good frequentist description
+of ``the probability that the Argos will win their next game.''
+After all, in what universe do we get to see this singular event over and over again (to develop or observe frequencies)?
+For this reason, I think this betting-odds way of thinking about Bayesian probabilities is the only consistent,
+quantitative statement that can be made about one's probabilities or degrees of belief.}
+it to ask at what odds would the Bayesian place a bet.
+So, for instance, if I say there is a 35-percent chance that the Argos will win their next game,
+then I should be willing to bet (a small amount of money) that they will win if the book offers me odds
+of $R:1$ to win with $R>1.86$
+and I should be willing to bet that they will lose if the book offers
+me odds of $R:1$ to lose with $R>0.54$.
+There is a direct translation between odds and probabilities, such that if I say that the probability
+that some proposition $H$ will happen (or is true) is $P_H$, then I should be willing to bet that $H$
+will happen if I am offered odds $R:1$ with $R>P_H/(1 - P_H)$.
+I should be willing to bet that $H$ won't happen (or is not true) if I am offered odds $R:1$ with $R>(1-P_H)/P_H$.
+
+One of the interesting facts about these odds is that, if I am a rational Bayesian,
+and if the stakes are not very large\footnote{%
+It is hard to know whether I would bet a decade of salary on something, even if I thought the odds were in my favor.
+So in what follows we only consider small bets, which are small in the sense of ``not meaningfully changing my standard of living.''}
+then the threshold $P/(1-P)$ on the odds $R$ at which I am willing to bet in favor of the proposition is
+precisely the inverse of the threshold $(1-P)/P$ on the odds $R$ at which I am willing to bet against the proposition.
+That's going to be useful, below.
+
+\paragraph{Prop bet setup:}
+We have two friends, $A$ and $B$, who want to bet on an outcome $H$ of some event.
+They are friends, so they want to structure their bet so both friends consider the betting conditions to be fair.
+There is some number $R_H^{(A)}$ such that, if offered odds $R:1$ with $R>R_H^{(A)}$, friend $A$ would bet on $H$.
+There is some other number $R_{\not H}^{(A)}$ such that, if offered odds $R:1$ with $R>R_{\not H}^{(A)}$, friend $A$
+would bet on the opposite of $H$, or not-$H$ or $\not H$.
+If $A$ is rational, if $A$ is down to bet, and if the stakes are not large, then it should be the case that
+$R_{\not H}^{(A)} \approx 1/R_H^{(A)}$.
+
+Similarly for friend $B$, there should be a threshold $R_H^{(B)}$ such that, if offered odds $R:1$ with $R>R_H^{(B)}$, friend $B$ would bet on $H$.
+There should be a threshold $R_{\not H}^{(B)}$ such that, if offered odds $R:1$ with $R>R_{\not H}^{(B)}$, friend $B$
+would bet on $\not H$.
+And it should be that $R_{\not H}^{(B)} \approx 1/R_H^{(B)}$.
+
+Now imagine that both friends, $A$ and $B$ decide on a proposition $H$ and a ``stakes'' $q$.
+The proposition $H$ needs to be a well-defined yes--no question that will get unambiguously decided in the near future.\footnote{%
+I say ``near future'' here because we don't want to get into discount-rate or interest-rate considerations,
+which might differentiate $A$ and $B$ in weird ways.}
+The stakes $q$ is the scale of the money involved, denominated in money units.
+In detail we are going to set up our bet such that the total amount of money at stake is $2\,q$.
+That is, the sum of what friend $A$ bets and what friend $B$ bets will be exactly $2\,q$.
+This is a choice made here, and not in any sense a general definition of the word ``stakes.''
+
+\paragraph{Prop algorithm:}
+
+\paragraph{O/U bet setup:}
+There is another kind of bet that friends $A$ and $B$ might want to make on an event.
+There might be a \emph{number} $y$ generated by the event, and they want to bet on the \emph{value} of that number $y$.
+One nice structure is to choose a threshold $x$ for that number, such that a bet that $y>x$ is even odds or $1:1$, and
+a bet that $y<x$ is also even odds.
+
+\paragraph{O/U algorithm:}
+\end{document}
